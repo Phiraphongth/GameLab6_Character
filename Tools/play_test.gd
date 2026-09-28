@@ -31,10 +31,10 @@ func _run() -> void:
 	var main_scene: String = ProjectSettings.get_setting("application/run/main_scene")
 	change_scene_to_file(main_scene)
 	await frames(10)
-	check(current_scene.scene_file_path.ends_with("showcase.tscn"), "Game opens on the character showcase")
+	check(current_scene.scene_file_path.ends_with("showcase.tscn"), "Game opens on the start screen")
 	var sc_anim: AnimationPlayer = current_scene.get_node("Turntable/Hero/AnimationPlayer")
 	check(sc_anim.has_animation("melee/Slash1") and sc_anim.has_animation("shooter/idle"),
-		"Showcase has MeleeLib and ShooterLib clips")
+		"Start screen character has MeleeLib and ShooterLib clips")
 	gm.start_game()
 	await frames(80)
 	check(current_scene.scene_file_path.ends_with("level_1.tscn"), "Game starts in level 1")

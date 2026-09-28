@@ -76,12 +76,12 @@ libraries = {
 &"player": ExtResource("5_s"),
 &"shooter": ExtResource("4_s")
 }
-autoplay = "shooter/idle"
+autoplay = "player/Idle"
 
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, -0.9, 0.35, 3.6)
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0.3, 4.2)
 current = true
 fov = 55.0

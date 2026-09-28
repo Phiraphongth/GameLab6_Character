@@ -3,14 +3,13 @@
 แบบฝึกหัดที่ 6: **ออกแบบตัวละคร** — สร้างตัวละคร 3D ใน **Blender** ใส่โครงกระดูกแบบ **Mixamo**
 แล้วนำเข้า **Godot 4.7** โดยใช้ท่าทางจาก [Godot4-OpenAnimationLibraries](https://github.com/catprisbrey/Godot4-OpenAnimationLibraries)
 (`Mixamo BoneMap.tres`, `MeleeLib.res`, `ShooterLib.res`) จากนั้นนำตัวละครไปเป็น **Player** ในเกมของแบบฝึกหัดที่ 5 (Sky Ninja)
-และมีฉาก **Character Showcase** สำหรับกดดูท่าทางทั้งหมด
+หน้าเริ่มเกมแสดงตัวละครพร้อมปุ่ม **PLAY GAME**
 
-![Showcase](Screenshots/03_showcase_shooter_aim.png)
+![Start screen](Screenshots/01_start_screen.png)
 
 ## วิธีเล่น
 
-เกมเปิดที่หน้า **Character Showcase** — กดปุ่มชื่อท่าในแท็บ *Game / Melee / Shooter* เพื่อดูท่าทาง
-(ลากเมาส์ = หมุนตัวละคร, ล้อเมาส์ = ซูม) แล้วกด **PLAY GAME** เพื่อเริ่มเล่น
+เกมเปิดที่หน้าแสดงตัวละคร (ลากเมาส์ = หมุนตัวละคร) กด **PLAY GAME** เพื่อเริ่มเล่น
 
 | ปุ่ม | การทำงาน |
 |---|---|
@@ -18,7 +17,7 @@
 | เมาส์ | หมุนกล้อง (คลิกในเกมเพื่อล็อกเมาส์) |
 | `Space` | กระโดด — กดอีกครั้งกลางอากาศขณะเคลื่อนที่ = ตีลังกา |
 | คลิกซ้าย / `F` | โจมตี: ต่อย → ต่อย → เตะ (กดต่อเนื่อง), กลางอากาศ = ฟันกระโดด |
-| `Esc` / `P` | หยุดเกม (Resume / Restart Level / Character Showcase) |
+| `Esc` / `P` | หยุดเกม (Resume / Restart Level / Main Menu) |
 
 เก็บเหรียญให้ครบเพื่อเปิดประตู GOAL แล้วเข้าประตูเพื่อไปด่านต่อไป (2 ด่าน)
 
@@ -66,23 +65,22 @@ Godot จะเปลี่ยนชื่อกระดูกเป็นม�
 Godot_v4.7-stable_win64_console.exe --headless --path . -s Tools/build_player6_animations.gd
 ```
 
-### 4. Showcase
-`Scenes/UI/showcase.tscn` มี AnimationPlayer ที่ใส่ไลบรารี `melee`, `shooter`, `player` ครบทั้ง 3 ชุด
-และสร้างปุ่มสำหรับทุกท่าอัตโนมัติ (ไม่รวม `root-*` ซึ่งเป็นท่าเดียวกันแบบ root motion)
+### 4. หน้าเริ่มเกม
+`Scenes/UI/showcase.tscn` แสดงตัวละครบนเกาะลอยฟ้า (AnimationPlayer ใส่ไลบรารี `melee`, `shooter`, `player`) และปุ่ม PLAY GAME
 
 ## ภาพหน้าจอ
 
 | | |
 |---|---|
-| ![](Screenshots/02_showcase_melee_heavy.png) | ![](Screenshots/04_showcase_melee_slash.png) |
 | ![](Screenshots/06_game_run.png) | ![](Screenshots/07_game_attack.png) |
+| ![](Screenshots/08_game_flip.png) | ![](Screenshots/09_godot_editor.png) |
 
 ## ทดสอบอัตโนมัติ
 
 ```
 Godot_v4.7-stable_win64_console.exe --headless --path . -s Tools/play_test.gd
 ```
-ตรวจ 29 รายการ: เปิดที่ Showcase, มีท่าจาก Melee/Shooter, Skeleton ถูก retarget, ท่า Idle ขยับกระดูกจริง, คอมโบโจมตี,
+ตรวจ 29 รายการ: เปิดที่หน้าเริ่มเกม, มีท่าจาก Melee/Shooter, Skeleton ถูก retarget, ท่า Idle ขยับกระดูกจริง, คอมโบโจมตี,
 กระโดด/ตีลังกา, กับดัก, checkpoint, เหรียญ, ประตู, เปลี่ยนด่าน, หน้าจอชนะ
 
 ภาพหน้าจอเกมสร้างด้วย `Godot --path . -s Tools/capture_screenshots.gd`

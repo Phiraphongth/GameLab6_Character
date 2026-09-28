@@ -28,15 +28,7 @@ func shot(file: String) -> void:
 func _run() -> void:
 	change_scene_to_file("res://Scenes/UI/showcase.tscn")
 	await frames(30)
-	var sc := current_scene
-	await shot("01_showcase_idle.png")
-	for clip in [["melee/Heavy1", 0.6, "02_showcase_melee_heavy.png"],
-			["shooter/aim-rifle", 0.8, "03_showcase_shooter_aim.png"],
-			["melee/Slash2", 0.45, "04_showcase_melee_slash.png"],
-			["shooter/kick1", 0.5, "05_showcase_kick.png"]]:
-		sc._play(clip[0])
-		await create_timer(clip[1]).timeout
-		await shot(clip[2])
+	await shot("01_start_screen.png")
 
 	gm.start_game()
 	await create_timer(2.5).timeout

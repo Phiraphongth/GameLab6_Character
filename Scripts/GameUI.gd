@@ -22,7 +22,7 @@ func _ready():
 	$PauseMenu/Center/Box/VBox/Resume.pressed.connect(toggle_pause)
 	$PauseMenu/Center/Box/VBox/Restart.pressed.connect(GameManager.restart_level)
 	var showcase := Button.new()
-	showcase.text = "Character Showcase"
+	showcase.text = "Main Menu"
 	showcase.pressed.connect(GameManager.open_showcase)
 	$PauseMenu/Center/Box/VBox.add_child(showcase)
 
