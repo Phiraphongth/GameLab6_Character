@@ -1,0 +1,202 @@
+[gd_scene load_steps=25 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Gameplay/Door.gd" id="1_r"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/particle.png" id="2_r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.93, 0.9, 0.84, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.95, 0.72, 0.2, 1)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
+albedo_color = Color(0.55, 0.33, 0.2, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(0.7, 3.8, 0.8)
+material = SubResource("StandardMaterial3D_1")
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.7, 3.8, 0.8)
+material = SubResource("StandardMaterial3D_1")
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+size = Vector3(4.4, 0.55, 1)
+material = SubResource("StandardMaterial3D_2")
+
+[sub_resource type="PrismMesh" id="PrismMesh_7"]
+size = Vector3(4.9, 0.6, 1.2)
+material = SubResource("StandardMaterial3D_1")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8"]
+size = Vector3(0.7, 3.8, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_9"]
+size = Vector3(0.7, 3.8, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_10"]
+size = Vector3(4.4, 0.9, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11"]
+size = Vector3(2.4, 3.2, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_12"]
+size = Vector3(1.2, 3.2, 0.15)
+material = SubResource("StandardMaterial3D_3")
+
+[sub_resource type="SphereMesh" id="SphereMesh_13"]
+radius = 0.08
+height = 0.16
+material = SubResource("StandardMaterial3D_2")
+
+[sub_resource type="Shader" id="Shader_14"]
+code = "shader_type spatial;\nrender_mode unshaded, cull_disabled, shadows_disabled;\nuniform vec4 color_a : source_color = vec4(0.2, 0.75, 1.0, 1.0);\nuniform vec4 color_b : source_color = vec4(1.0, 1.0, 1.0, 1.0);\nvoid fragment() {\n\tvec2 uv = UV * 2.0 - 1.0;\n\tfloat r = length(uv);\n\tfloat a = atan(uv.y, uv.x);\n\tfloat swirl = sin(a * 4.0 + r * 9.0 - TIME * 5.0) * 0.5 + 0.5;\n\tALBEDO = mix(color_a.rgb, color_b.rgb, swirl * (1.0 - r) + (1.0 - r) * 0.4);\n\tALPHA = smoothstep(1.0, 0.85, r) * (0.7 + 0.3 * swirl);\n}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_15"]
+shader = SubResource("Shader_14")
+
+[sub_resource type="QuadMesh" id="QuadMesh_16"]
+size = Vector2(2.4, 3.2)
+material = SubResource("ShaderMaterial_15")
+
+[sub_resource type="BoxMesh" id="BoxMesh_17"]
+size = Vector3(0.6, 0.5, 0.2)
+material = SubResource("StandardMaterial3D_2")
+
+[sub_resource type="TorusMesh" id="TorusMesh_18"]
+inner_radius = 0.14
+outer_radius = 0.22
+rings = 12
+ring_segments = 6
+material = SubResource("StandardMaterial3D_2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_19"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_r")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+
+[sub_resource type="Gradient" id="Gradient_20"]
+colors = PackedColorArray(0.6, 0.95, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_21"]
+material = SubResource("StandardMaterial3D_19")
+size = Vector2(0.25, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_22"]
+size = Vector3(2.3, 3, 1.4)
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_r")
+
+[node name="PillarL" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 1.9, 0)
+mesh = SubResource("BoxMesh_4")
+
+[node name="PillarR" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 1.9, 0)
+mesh = SubResource("BoxMesh_5")
+
+[node name="Beam" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.05, 0)
+mesh = SubResource("BoxMesh_6")
+
+[node name="Roof" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+mesh = SubResource("PrismMesh_7")
+
+[node name="Frame" type="StaticBody3D" parent="."]
+
+[node name="Shape0" type="CollisionShape3D" parent="Frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 1.9, 0)
+shape = SubResource("BoxShape3D_8")
+
+[node name="Shape1" type="CollisionShape3D" parent="Frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 1.9, 0)
+shape = SubResource("BoxShape3D_9")
+
+[node name="Shape2" type="CollisionShape3D" parent="Frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2, 0)
+shape = SubResource("BoxShape3D_10")
+
+[node name="Blocker" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+shape = SubResource("BoxShape3D_11")
+
+[node name="LeftHinge" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, 0)
+
+[node name="Leaf" type="MeshInstance3D" parent="LeftHinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.6, 0)
+mesh = SubResource("BoxMesh_12")
+
+[node name="Knob" type="MeshInstance3D" parent="LeftHinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 0.12)
+mesh = SubResource("SphereMesh_13")
+
+[node name="RightHinge" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)
+
+[node name="Leaf" type="MeshInstance3D" parent="RightHinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.6, 0)
+mesh = SubResource("BoxMesh_12")
+
+[node name="Knob" type="MeshInstance3D" parent="RightHinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, 0.12)
+mesh = SubResource("SphereMesh_13")
+
+[node name="Portal" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -0.05)
+mesh = SubResource("QuadMesh_16")
+
+[node name="Lock" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0.45)
+
+[node name="Body" type="MeshInstance3D" parent="Lock"]
+mesh = SubResource("BoxMesh_17")
+
+[node name="Shackle" type="MeshInstance3D" parent="Lock"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.3, 0)
+mesh = SubResource("TorusMesh_18")
+
+[node name="Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 1)
+light_color = Color(0.4, 0.85, 1, 1)
+light_energy = 3
+omni_range = 7
+
+[node name="Sparkles" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0.3)
+amount = 24
+lifetime = 1.6
+mesh = SubResource("QuadMesh_21")
+emission_shape = 3
+emission_box_extents = Vector3(1.1, 1.5, 0.2)
+direction = Vector3(0, 1, 0)
+spread = 30
+gravity = Vector3(0, 0.5, 0)
+initial_velocity_min = 0.2
+initial_velocity_max = 0.8
+color_ramp = SubResource("Gradient_20")
+
+[node name="Sign" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.05, 0.52)
+text = "GOAL"
+font_size = 96
+outline_size = 18
+modulate = Color(0.45, 0.25, 0.05, 1)
+outline_modulate = Color(1, 0.95, 0.7, 1)
+
+[node name="Trigger" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.2)
+shape = SubResource("BoxShape3D_22")

@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://Scripts/UI/Showcase.gd" id="1_s"]
+[ext_resource type="PackedScene" path="res://Assets/Models/player6/character.glb" id="2_s"]
+[ext_resource type="AnimationLibrary" path="res://Assets/Animations/MeleeLib.res" id="3_s"]
+[ext_resource type="AnimationLibrary" path="res://Assets/Animations/ShooterLib.res" id="4_s"]
+[ext_resource type="AnimationLibrary" path="res://Assets/Models/player6/player6_animations.res" id="5_s"]
+
+[sub_resource type="ProceduralSkyMaterial" id="Sky_1"]
+sky_top_color = Color(0.32, 0.55, 0.92, 1)
+sky_horizon_color = Color(0.78, 0.88, 0.98, 1)
+ground_bottom_color = Color(0.45, 0.62, 0.85, 1)
+ground_horizon_color = Color(0.78, 0.88, 0.98, 1)
+
+[sub_resource type="Sky" id="Sky_2"]
+sky_material = SubResource("Sky_1")
+
+[sub_resource type="Environment" id="Env_1"]
+background_mode = 2
+sky = SubResource("Sky_2")
+ambient_light_source = 3
+ambient_light_sky_contribution = 1.0
+ambient_light_energy = 0.5
+tonemap_mode = 3
+
+[sub_resource type="CylinderMesh" id="Stage_1"]
+top_radius = 1.6
+bottom_radius = 1.3
+height = 0.4
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StageMat_1"]
+albedo_color = Color(0.46, 0.74, 0.36, 1)
+roughness = 0.9
+
+[sub_resource type="CylinderMesh" id="Stage_2"]
+top_radius = 1.3
+bottom_radius = 0.3
+height = 1.2
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StageMat_2"]
+albedo_color = Color(0.55, 0.4, 0.28, 1)
+roughness = 1.0
+
+[node name="Showcase" type="Node3D"]
+script = ExtResource("1_s")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.321394, 0.383022, 0, 0.766044, 0.642788, -0.5, -0.55667, 0.663414, 0, 5, 0)
+shadow_enabled = true
+
+[node name="Stage" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("Stage_1")
+surface_material_override/0 = SubResource("StageMat_1")
+
+[node name="Rock" type="MeshInstance3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+mesh = SubResource("Stage_2")
+surface_material_override/0 = SubResource("StageMat_2")
+
+[node name="Turntable" type="Node3D" parent="."]
+
+[node name="Hero" parent="Turntable" instance=ExtResource("2_s")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Turntable/Hero"]
+root_node = NodePath("..")
+libraries = {
+&"melee": ExtResource("3_s"),
+&"player": ExtResource("5_s"),
+&"shooter": ExtResource("4_s")
+}
+autoplay = "shooter/idle"
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, -0.9, 0.35, 3.6)
+current = true
+fov = 55.0

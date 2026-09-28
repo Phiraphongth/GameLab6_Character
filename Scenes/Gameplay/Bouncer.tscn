@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Gameplay/Bouncer.gd" id="1_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/props/spring.glb" id="2_r"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1"]
+radius = 0.75
+height = 0.8
+
+[node name="Bouncer" type="Area3D"]
+script = ExtResource("1_r")
+
+[node name="Model" parent="." instance=ExtResource("2_r")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_1")

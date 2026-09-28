@@ -1,0 +1,566 @@
+[gd_scene load_steps=31 format=3]
+
+[ext_resource type="Script" path="res://Scripts/World/Level.gd" id="1_r"]
+[ext_resource type="Script" path="res://Scripts/World/Island.gd" id="2_r"]
+[ext_resource type="Script" path="res://Scripts/World/LowPolyTree.gd" id="3_r"]
+[ext_resource type="Script" path="res://Scripts/World/ModelPart.gd" id="4_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/nature/flowers.glb" id="5_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/nature/bushes.glb" id="6_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/nature/flower_bushes.glb" id="7_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/props/rock.glb" id="8_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/props/arrow_sign.glb" id="9_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/props/crate.glb" id="10_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/props/bricks.glb" id="11_r"]
+[ext_resource type="PackedScene" path="res://Scenes/World/Lantern.tscn" id="12_r"]
+[ext_resource type="PackedScene" path="res://Scenes/Gameplay/Bouncer.tscn" id="13_r"]
+[ext_resource type="PackedScene" path="res://Scenes/Gameplay/SpinBar.tscn" id="14_r"]
+[ext_resource type="PackedScene" path="res://Scenes/Gameplay/MovingPlatform.tscn" id="15_r"]
+[ext_resource type="PackedScene" path="res://Scenes/Gameplay/SpikeTrap.tscn" id="16_r"]
+[ext_resource type="PackedScene" path="res://Scenes/Gameplay/Spikes.tscn" id="17_r"]
+[ext_resource type="PackedScene" path="res://Scenes/Gameplay/SawBlade.tscn" id="18_r"]
+[ext_resource type="PackedScene" path="res://Scenes/Gameplay/SpikyBall.tscn" id="19_r"]
+[ext_resource type="PackedScene" path="res://Scenes/Gameplay/Checkpoint.tscn" id="20_r"]
+[ext_resource type="PackedScene" path="res://Scenes/Gameplay/Door.tscn" id="21_r"]
+[ext_resource type="PackedScene" path="res://Scenes/Coin.tscn" id="22_r"]
+[ext_resource type="Script" path="res://Scripts/World/CloudPuff.gd" id="23_r"]
+[ext_resource type="PackedScene" path="res://Scenes/player.tscn" id="24_r"]
+[ext_resource type="Script" path="res://Scripts/DeadZone.gd" id="25_r"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/game_ui.tscn" id="26_r"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.26, 0.2, 0.5, 1)
+sky_horizon_color = Color(1, 0.62, 0.45, 1)
+sky_curve = 0.12
+ground_bottom_color = Color(0.42, 0.28, 0.52, 1)
+ground_horizon_color = Color(1, 0.62, 0.45, 1)
+ground_curve = 0.05
+sun_angle_max = 20
+sky_energy_multiplier = 1
+
+[sub_resource type="Sky" id="Sky_2"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_3"]
+background_mode = 2
+sky = SubResource("Sky_2")
+ambient_light_source = 3
+ambient_light_sky_contribution = 1
+ambient_light_energy = 0.5
+tonemap_mode = 3
+tonemap_exposure = 1
+glow_enabled = true
+glow_intensity = 0.25
+fog_enabled = true
+fog_light_color = Color(1, 0.62, 0.45, 1)
+fog_density = 0.004
+fog_sky_affect = 0
+adjustment_enabled = true
+adjustment_saturation = 1.2
+adjustment_contrast = 1.05
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4"]
+size = Vector3(400, 10, 400)
+
+[node name="Level2" type="Node3D"]
+script = ExtResource("1_r")
+level_name = "Level 2 - Sunset Sky Fortress"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.211309, 0.453154, 0, 0.906308, 0.422618, -0.5, 0.365998, -0.784886, 0, 20, 0)
+light_color = Color(1, 0.72, 0.5, 1)
+light_energy = 1.2
+shadow_enabled = true
+directional_shadow_max_distance = 60
+
+[node name="Islands" type="Node3D" parent="."]
+
+[node name="Start" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.848048, 0, 0.529919, 0, 1, 0, -0.529919, 0, 0.848048, 0, 0, 0)
+script = ExtResource("2_r")
+radius = 5.5
+depth = 6
+sides = 8
+variation = 31
+grass_color = Color(0.5, 0.72, 0.32, 1)
+dirt_color = Color(0.55, 0.3, 0.3, 1)
+rock_color = Color(0.45, 0.36, 0.58, 1)
+
+[node name="High" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.997564, 0, 0.069756, 0, 1, 0, -0.069756, 0, 0.997564, 0, 5, -12)
+script = ExtResource("2_r")
+radius = 4.5
+depth = 5
+sides = 8
+variation = 32
+grass_color = Color(0.5, 0.72, 0.32, 1)
+dirt_color = Color(0.55, 0.3, 0.3, 1)
+rock_color = Color(0.45, 0.36, 0.58, 1)
+
+[node name="TrapIsland" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.93358, 0, 0.358368, 0, 1, 0, -0.358368, 0, 0.93358, 0, 7, -32)
+script = ExtResource("2_r")
+radius = 5
+depth = 5
+sides = 8
+variation = 33
+grass_color = Color(0.5, 0.72, 0.32, 1)
+dirt_color = Color(0.55, 0.3, 0.3, 1)
+rock_color = Color(0.45, 0.36, 0.58, 1)
+
+[node name="SawIsland" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.788011, 0, 0.615661, 0, 1, 0, -0.615661, 0, 0.788011, 0, 7.5, -43.6)
+script = ExtResource("2_r")
+radius = 4.5
+depth = 5
+sides = 8
+variation = 34
+grass_color = Color(0.5, 0.72, 0.32, 1)
+dirt_color = Color(0.55, 0.3, 0.3, 1)
+rock_color = Color(0.45, 0.36, 0.58, 1)
+
+[node name="Stone1" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, 0.984808, 4, 8, -51)
+script = ExtResource("2_r")
+radius = 1.8
+depth = 2.5
+sides = 7
+variation = 35
+grass_color = Color(0.5, 0.72, 0.32, 1)
+dirt_color = Color(0.55, 0.3, 0.3, 1)
+rock_color = Color(0.45, 0.36, 0.58, 1)
+
+[node name="Stone2" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.891007, 0, 0.45399, 0, 1, 0, -0.45399, 0, 0.891007, 1, 8.6, -56)
+script = ExtResource("2_r")
+radius = 1.8
+depth = 2.5
+sides = 7
+variation = 36
+grass_color = Color(0.5, 0.72, 0.32, 1)
+dirt_color = Color(0.55, 0.3, 0.3, 1)
+rock_color = Color(0.45, 0.36, 0.58, 1)
+
+[node name="GoalIsland" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.71934, 0, 0.694658, 0, 1, 0, -0.694658, 0, 0.71934, 0, 9, -65)
+script = ExtResource("2_r")
+radius = 6
+depth = 7
+sides = 8
+variation = 37
+grass_color = Color(0.5, 0.72, 0.32, 1)
+dirt_color = Color(0.55, 0.3, 0.3, 1)
+rock_color = Color(0.45, 0.36, 0.58, 1)
+
+[node name="Deco1" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.961262, 0, 0.275637, 0, 1, 0, -0.275637, 0, 0.961262, -15, 2, -20)
+script = ExtResource("2_r")
+radius = 3
+depth = 4
+sides = 8
+variation = 38
+grass_color = Color(0.5, 0.72, 0.32, 1)
+dirt_color = Color(0.55, 0.3, 0.3, 1)
+rock_color = Color(0.45, 0.36, 0.58, 1)
+
+[node name="Deco2" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.838671, 0, 0.544639, 0, 1, 0, -0.544639, 0, 0.838671, 14, 10, -40)
+script = ExtResource("2_r")
+radius = 2.5
+depth = 3
+sides = 8
+variation = 39
+grass_color = Color(0.5, 0.72, 0.32, 1)
+dirt_color = Color(0.55, 0.3, 0.3, 1)
+rock_color = Color(0.45, 0.36, 0.58, 1)
+
+[node name="Deco3" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.996195, 0, 0.087156, 0, 1, 0, -0.087156, 0, 0.996195, -12, 12, -62)
+script = ExtResource("2_r")
+radius = 3.5
+depth = 4
+sides = 8
+variation = 40
+grass_color = Color(0.5, 0.72, 0.32, 1)
+dirt_color = Color(0.55, 0.3, 0.3, 1)
+rock_color = Color(0.45, 0.36, 0.58, 1)
+
+[node name="Decor" type="Node3D" parent="."]
+
+[node name="Tree0" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766044, -3.4, 0, -1.2)
+script = ExtResource("3_r")
+kind = 0
+height = 3.2
+variation = 40
+leaf_color = Color(0.98, 0.62, 0.78, 1)
+
+[node name="Tree1" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(0.224951, 0, 0.97437, 0, 1, 0, -0.97437, 0, 0.224951, 3.6, 0, 1.4)
+script = ExtResource("3_r")
+kind = 0
+height = 2.8
+variation = 41
+leaf_color = Color(0.98, 0.62, 0.78, 1)
+
+[node name="Tree2" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(-0.406737, 0, 0.913545, 0, 1, 0, -0.913545, 0, -0.406737, -3.2, 5, -13.6)
+script = ExtResource("3_r")
+kind = 0
+height = 2.6
+variation = 42
+leaf_color = Color(0.98, 0.62, 0.78, 1)
+
+[node name="Tree3" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(-0.87462, 0, 0.48481, 0, 1, 0, -0.48481, 0, -0.87462, 3.6, 7, -34.5)
+script = ExtResource("3_r")
+kind = 0
+height = 3
+variation = 43
+leaf_color = Color(0.98, 0.62, 0.78, 1)
+
+[node name="Tree4" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(-0.990268, 0, -0.139173, 0, 1, 0, 0.139173, 0, -0.990268, -3.6, 7, -34.5)
+script = ExtResource("3_r")
+kind = 1
+height = 3.2
+variation = 44
+leaf_color = Color(0.25, 0.5, 0.42, 1)
+
+[node name="Tree5" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -3.6, 9, -62)
+script = ExtResource("3_r")
+kind = 0
+height = 3.4
+variation = 45
+leaf_color = Color(0.98, 0.62, 0.78, 1)
+
+[node name="Tree6" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(-0.139173, 0, -0.990268, 0, 1, 0, 0.990268, 0, -0.139173, 3.8, 9, -62)
+script = ExtResource("3_r")
+kind = 0
+height = 3
+variation = 46
+leaf_color = Color(0.98, 0.62, 0.78, 1)
+
+[node name="Tree7" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(0.48481, 0, -0.87462, 0, 1, 0, 0.87462, 0, 0.48481, -15, 2, -20)
+script = ExtResource("3_r")
+kind = 0
+height = 3.6
+variation = 47
+leaf_color = Color(0.98, 0.62, 0.78, 1)
+
+[node name="Tree8" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(0.913545, 0, -0.406737, 0, 1, 0, 0.406737, 0, 0.913545, 14, 10, -40)
+script = ExtResource("3_r")
+kind = 1
+height = 3
+variation = 48
+leaf_color = Color(0.25, 0.5, 0.42, 1)
+
+[node name="Tree9" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(0.97437, 0, 0.224951, 0, 1, 0, -0.224951, 0, 0.97437, -12, 12, -62)
+script = ExtResource("3_r")
+kind = 0
+height = 3.8
+variation = 49
+leaf_color = Color(0.98, 0.62, 0.78, 1)
+
+[node name="Flowers0" parent="Decor" instance=ExtResource("5_r")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 1.8, 0, 3.4)
+script = ExtResource("4_r")
+part = "Flower_2_Clump"
+
+[node name="Flowers1" parent="Decor" instance=ExtResource("5_r")]
+transform = Transform3D(0.376222, 0, 1.03366, 0, 1.1, 0, -1.03366, 0, 0.376222, -2, 0, 3)
+script = ExtResource("4_r")
+part = "Flower_3_Clump"
+
+[node name="Flowers2" parent="Decor" instance=ExtResource("5_r")]
+transform = Transform3D(-0.842649, 0, 0.707066, 0, 1.1, 0, -0.707066, 0, -0.842649, 2.8, 7, -29.2)
+script = ExtResource("4_r")
+part = "Flower_1_Clump"
+
+[node name="Flowers3" parent="Decor" instance=ExtResource("5_r")]
+transform = Transform3D(-0.952628, 0, -0.55, 0, 1.1, 0, 0.55, 0, -0.952628, -2.5, 9, -60.5)
+script = ExtResource("4_r")
+part = "Flower_4_Clump"
+
+[node name="Flowers4" parent="Decor" instance=ExtResource("5_r")]
+transform = Transform3D(0.191013, 0, -1.08329, 0, 1.1, 0, 1.08329, 0, 0.191013, 2.5, 9, -60.5)
+script = ExtResource("4_r")
+part = "Flower_5_Clump"
+
+[node name="Bush1" parent="Decor" instance=ExtResource("6_r")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -4, 0, 1.8)
+script = ExtResource("4_r")
+part = "Bush_Flowers"
+
+[node name="Bush2" parent="Decor" instance=ExtResource("7_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 5, -14.2)
+script = ExtResource("4_r")
+part = "Plant_Flowers"
+
+[node name="Bush3" parent="Decor" instance=ExtResource("6_r")]
+transform = Transform3D(0.69282, 0, 0.4, 0, 0.8, 0, -0.4, 0, 0.69282, -3.2, 7.5, -46)
+script = ExtResource("4_r")
+part = "Bush"
+
+[node name="Rock1" parent="Decor" instance=ExtResource("8_r")]
+transform = Transform3D(0.565685, 0, 0.565685, 0, 0.8, 0, -0.565685, 0, 0.565685, 4, 0.1, -2)
+
+[node name="Rock2" parent="Decor" instance=ExtResource("8_r")]
+transform = Transform3D(0.590885, 0, 0.104189, 0, 0.6, 0, -0.104189, 0, 0.590885, -3.8, 7.6, -41.8)
+
+[node name="Sign1" parent="Decor" instance=ExtResource("9_r")]
+transform = Transform3D(0, 0, 0.6, 0, 0.6, 0, -0.6, 0, 0, 2, 0, -3.4)
+
+[node name="Crate1" parent="Decor" instance=ExtResource("10_r")]
+transform = Transform3D(0.328892, 0, 0.119707, 0, 0.35, 0, -0.119707, 0, 0.328892, 3.4, 5.35, -10.6)
+
+[node name="Bricks1" parent="Decor" instance=ExtResource("11_r")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4.2, 9.5, -66.5)
+
+[node name="Bricks2" parent="Decor" instance=ExtResource("11_r")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 4.2, 9.5, -66.5)
+
+[node name="Bricks3" parent="Decor" instance=ExtResource("11_r")]
+transform = Transform3D(0.482963, 0, 0.12941, 0, 0.5, 0, -0.12941, 0, 0.482963, 4.2, 10.5, -66.5)
+
+[node name="Lantern0" parent="Decor" instance=ExtResource("12_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -2.5)
+
+[node name="Lantern1" parent="Decor" instance=ExtResource("12_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3, 5, -9.2)
+
+[node name="Lantern2" parent="Decor" instance=ExtResource("12_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 7, -29.4)
+
+[node name="Lantern3" parent="Decor" instance=ExtResource("12_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 7.5, -41.4)
+
+[node name="Lantern4" parent="Decor" instance=ExtResource("12_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 9, -68.6)
+
+[node name="Lantern5" parent="Decor" instance=ExtResource("12_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 9, -68.6)
+
+[node name="Lantern6" parent="Decor" instance=ExtResource("12_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, -60.3)
+
+[node name="Hazards" type="Node3D" parent="."]
+
+[node name="Bouncer" parent="Hazards" instance=ExtResource("13_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.2)
+
+[node name="SpinBar" parent="Hazards" instance=ExtResource("14_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -12)
+spin_degrees = Vector3(0, 85, 0)
+
+[node name="Platform1" parent="Hazards" instance=ExtResource("15_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 5.2, -19.5)
+move_offset = Vector3(6, 0, 0)
+move_time = 2
+
+[node name="Platform2" parent="Hazards" instance=ExtResource("15_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.2, -24.5)
+move_offset = Vector3(0, 2.5, 0)
+move_time = 2
+start_delay = 1
+
+[node name="SpikeTrap0" parent="Hazards" instance=ExtResource("16_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 7, -30.6)
+start_delay = 0
+down_time = 1.3
+up_time = 0.9
+
+[node name="SpikeTrap1" parent="Hazards" instance=ExtResource("16_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 7, -30.6)
+start_delay = 0.6
+down_time = 1.3
+up_time = 0.9
+
+[node name="SpikeTrap2" parent="Hazards" instance=ExtResource("16_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -33.4)
+start_delay = 1.2
+down_time = 1.3
+up_time = 0.9
+
+[node name="SpikeTrap3" parent="Hazards" instance=ExtResource("16_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 7, -33.4)
+start_delay = 1.8
+down_time = 1.3
+up_time = 0.9
+
+[node name="SpikeTrap4" parent="Hazards" instance=ExtResource("16_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 7, -33.4)
+start_delay = 0.3
+down_time = 1.3
+up_time = 0.9
+
+[node name="Spikes0" parent="Hazards" instance=ExtResource("17_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 7, -32)
+
+[node name="Spikes1" parent="Hazards" instance=ExtResource("17_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 7, -32)
+
+[node name="Spikes2" parent="Hazards" instance=ExtResource("17_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 9, -69)
+
+[node name="Spikes3" parent="Hazards" instance=ExtResource("17_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 9, -69)
+
+[node name="Saw1" parent="Hazards" instance=ExtResource("18_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 7.9, -42.4)
+move_offset = Vector3(6, 0, 0)
+move_time = 1.4
+
+[node name="Saw2" parent="Hazards" instance=ExtResource("18_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 7.9, -45.2)
+move_offset = Vector3(-6, 0, 0)
+move_time = 1.4
+start_delay = 0.7
+
+[node name="SpikyBall" parent="Hazards" instance=ExtResource("19_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, -64.5)
+spin_degrees = Vector3(0, 115, 0)
+
+[node name="Checkpoint1" parent="Hazards" instance=ExtResource("20_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 7, -28.8)
+
+[node name="Checkpoint2" parent="Hazards" instance=ExtResource("20_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 9, -60.2)
+
+[node name="Door" parent="." instance=ExtResource("21_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, -69.8)
+
+[node name="Coins" type="Node3D" parent="."]
+
+[node name="Coin0" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, -2)
+
+[node name="Coin1" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -2)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 5.9, -12)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 5.9, -12)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4, -19.5)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.8, -24.5)
+
+[node name="Coin6" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -32)
+
+[node name="Coin7" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 8, -35.6)
+
+[node name="Coin8" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, -43.8)
+
+[node name="Coin9" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 8.5, -46.2)
+
+[node name="Coin10" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 9.2, -51)
+
+[node name="Coin11" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 9.8, -56)
+
+[node name="Coin12" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 10, -63)
+
+[node name="Coin13" parent="Coins" instance=ExtResource("22_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 10, -63)
+
+[node name="Clouds" type="Node3D" parent="."]
+
+[node name="Cloud0" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -6, 2)
+script = ExtResource("23_r")
+size = 7
+variation = 20
+color = Color(1, 0.82, 0.86, 1)
+
+[node name="Cloud1" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -9, -8)
+script = ExtResource("23_r")
+size = 9
+variation = 21
+color = Color(1, 0.82, 0.86, 1)
+
+[node name="Cloud2" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -8, -36)
+script = ExtResource("23_r")
+size = 10
+variation = 22
+color = Color(1, 0.82, 0.86, 1)
+
+[node name="Cloud3" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -4, -58)
+script = ExtResource("23_r")
+size = 8
+variation = 23
+color = Color(1, 0.82, 0.86, 1)
+
+[node name="Cloud4" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -48)
+script = ExtResource("23_r")
+size = 7
+variation = 24
+color = Color(1, 0.82, 0.86, 1)
+
+[node name="Cloud5" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 2, -24)
+script = ExtResource("23_r")
+size = 6
+variation = 25
+color = Color(1, 0.82, 0.86, 1)
+
+[node name="Cloud6" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12, -80)
+script = ExtResource("23_r")
+size = 13
+variation = 26
+color = Color(1, 0.82, 0.86, 1)
+
+[node name="Cloud7" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 16, -80)
+script = ExtResource("23_r")
+size = 9
+variation = 27
+color = Color(1, 0.82, 0.86, 1)
+
+[node name="Cloud8" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 18, -70)
+script = ExtResource("23_r")
+size = 10
+variation = 28
+color = Color(1, 0.82, 0.86, 1)
+
+[node name="Cloud9" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 20, -20)
+script = ExtResource("23_r")
+size = 8
+variation = 29
+color = Color(1, 0.82, 0.86, 1)
+
+[node name="Player" parent="." instance=ExtResource("24_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 2.5)
+
+[node name="DeadZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, -40)
+script = ExtResource("25_r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeadZone"]
+shape = SubResource("BoxShape3D_4")
+
+[node name="GameUI" parent="." instance=ExtResource("26_r")]

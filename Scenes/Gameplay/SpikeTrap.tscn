@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Gameplay/SpikeTrap.gd" id="1_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/props/spike_trap.glb" id="2_r"]
+[ext_resource type="Script" path="res://Scripts/Gameplay/Hazard.gd" id="3_r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(1.7, 1, 1.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(1, 0.15, 0.1, 1)
+roughness = 0.85
+emission_enabled = true
+emission = Color(1, 0.15, 0.1, 1)
+emission_energy_multiplier = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(2.05, 0.04, 2.05)
+material = SubResource("StandardMaterial3D_2")
+
+[node name="SpikeTrap" type="Node3D"]
+script = ExtResource("1_r")
+
+[node name="Model" parent="." instance=ExtResource("2_r")]
+
+[node name="Hazard" type="Area3D" parent="."]
+script = ExtResource("3_r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hazard"]
+shape = SubResource("BoxShape3D_1")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Warning" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+visible = false
+mesh = SubResource("BoxMesh_3")

@@ -1,0 +1,248 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://Scripts/UI/WinScreen.gd" id="1_r"]
+[ext_resource type="Script" path="res://Scripts/World/Island.gd" id="2_r"]
+[ext_resource type="Script" path="res://Scripts/World/LowPolyTree.gd" id="3_r"]
+[ext_resource type="Script" path="res://Scripts/World/ModelPart.gd" id="4_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/nature/bushes.glb" id="5_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/nature/flowers.glb" id="6_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/props/crate.glb" id="7_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/player6/character.glb" id="8_r"]
+[ext_resource type="AnimationLibrary" path="res://Assets/Models/player6/player6_animations.res" id="9_r"]
+[ext_resource type="Script" path="res://Scripts/World/CloudPuff.gd" id="10_r"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.2, 0.14, 0.42, 1)
+sky_horizon_color = Color(1, 0.6, 0.45, 1)
+sky_curve = 0.12
+ground_bottom_color = Color(0.38, 0.24, 0.5, 1)
+ground_horizon_color = Color(1, 0.6, 0.45, 1)
+ground_curve = 0.05
+sun_angle_max = 20
+sky_energy_multiplier = 1
+
+[sub_resource type="Sky" id="Sky_2"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_3"]
+background_mode = 2
+sky = SubResource("Sky_2")
+ambient_light_source = 3
+ambient_light_sky_contribution = 1
+ambient_light_energy = 0.5
+tonemap_mode = 3
+tonemap_exposure = 1
+glow_enabled = true
+glow_intensity = 0.25
+fog_enabled = true
+fog_light_color = Color(1, 0.6, 0.45, 1)
+fog_density = 0.01
+fog_sky_affect = 0
+adjustment_enabled = true
+adjustment_saturation = 1.2
+adjustment_contrast = 1.05
+
+[node name="Menu" type="Node3D"]
+script = ExtResource("1_r")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, 0.383022, -0.321394, 0, 0.642788, 0.766044, 0.5, -0.663414, 0.55667, 0, 10, 0)
+shadow_enabled = true
+light_energy = 1.1
+
+[node name="Islands" type="Node3D" parent="."]
+
+[node name="Home" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.829038, 0, 0.559193, 0, 1, 0, -0.559193, 0, 0.829038, 0, 0, 0)
+script = ExtResource("2_r")
+radius = 4
+depth = 4
+sides = 8
+variation = 2
+
+[node name="Far1" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766044, -9, -2, -7)
+script = ExtResource("2_r")
+radius = 2.5
+depth = 3
+sides = 8
+variation = 5
+
+[node name="Far2" type="StaticBody3D" parent="Islands"]
+transform = Transform3D(0.999848, 0, 0.017452, 0, 1, 0, -0.017452, 0, 0.999848, 10, 1, -9)
+script = ExtResource("2_r")
+radius = 3
+depth = 3.5
+sides = 8
+variation = 8
+
+[node name="Decor" type="Node3D" parent="."]
+
+[node name="Tree1" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(0.798636, 0, 0.601815, 0, 1, 0, -0.601815, 0, 0.798636, -2.3, 0, -1.6)
+script = ExtResource("3_r")
+kind = 1
+height = 2.8
+variation = 1
+
+[node name="Tree2" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(0.275637, 0, 0.961262, 0, 1, 0, -0.961262, 0, 0.275637, 2.4, 0, -1.2)
+script = ExtResource("3_r")
+kind = 0
+height = 3.2
+variation = 2
+
+[node name="Tree3" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(-0.848048, 0, 0.529919, 0, 1, 0, -0.529919, 0, -0.848048, -9, -2, -7)
+script = ExtResource("3_r")
+kind = 0
+height = 2.6
+variation = 4
+
+[node name="Tree4" type="StaticBody3D" parent="Decor"]
+transform = Transform3D(-0.743145, 0, -0.669131, 0, 1, 0, 0.669131, 0, -0.743145, 10, 1, -9)
+script = ExtResource("3_r")
+kind = 1
+height = 3
+variation = 6
+
+[node name="Bush" parent="Decor" instance=ExtResource("5_r")]
+transform = Transform3D(0.69282, 0, 0.4, 0, 0.8, 0, -0.4, 0, 0.69282, 1.6, 0, 1.6)
+script = ExtResource("4_r")
+part = "Bush_Flowers"
+
+[node name="Flowers" parent="Decor" instance=ExtResource("6_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 1.8)
+script = ExtResource("4_r")
+part = "Flower_3_Clump"
+
+[node name="Crate" parent="Decor" instance=ExtResource("7_r")]
+transform = Transform3D(0.328892, 0, 0.119707, 0, 0.35, 0, -0.119707, 0, 0.328892, -2.6, 0.35, 1)
+
+[node name="Ninja" parent="." instance=ExtResource("8_r")]
+transform = Transform3D(0.72, 0, 0, 0, 0.72, 0, 0, 0, 0.72, 0, 0, 0.3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Ninja"]
+root_node = NodePath("..")
+libraries = {
+&"": ExtResource("9_r")
+}
+
+[node name="Clouds" type="Node3D" parent="."]
+
+[node name="Cloud0" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -5, 4)
+script = ExtResource("10_r")
+size = 3
+variation = 1
+
+[node name="Cloud1" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -6, 2)
+script = ExtResource("10_r")
+size = 4
+variation = 2
+
+[node name="Cloud2" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, -12)
+script = ExtResource("10_r")
+size = 6
+variation = 3
+
+[node name="Cloud3" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 3, -16)
+script = ExtResource("10_r")
+size = 4
+variation = 4
+
+[node name="Cloud4" type="Node3D" parent="Clouds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 5, -18)
+script = ExtResource("10_r")
+size = 5
+variation = 5
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0.9, 4.6)
+current = true
+fov = 60
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Title" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1
+offset_top = 40
+offset_bottom = 170
+grow_horizontal = 2
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(1, 0.84, 0.3, 1)
+theme_override_constants/outline_size = 28
+theme_override_font_sizes/font_size = 110
+text = "YOU WIN!"
+
+[node name="Subtitle" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1
+offset_top = 165
+offset_bottom = 215
+grow_horizontal = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 30
+text = "The sky islands are safe again. Great job, hero!"
+
+[node name="Center" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1
+anchor_bottom = 1
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI/Center"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1
+anchor_top = 1
+anchor_right = 1
+anchor_bottom = 1
+offset_left = -400
+offset_top = -340
+offset_right = -60
+offset_bottom = -60
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+theme_override_constants/separation = 16
+
+[node name="Stats" type="Label" parent="UI/Center/VBox"]
+layout_mode = 2
+horizontal_alignment = 2
+theme_override_font_sizes/font_size = 36
+text = ""
+
+[node name="PlayAgain" type="Button" parent="UI/Center/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 68)
+text = "Play Again"
+
+[node name="Credits" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1
+anchor_bottom = 1
+offset_left = 24
+offset_top = -110
+offset_right = 820
+offset_bottom = -16
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+modulate = Color(1, 1, 1, 0.9)
+text = "Based on 3D Platformer Starter Kit (SD Studios)\nModels: Quaternius via Poly Pizza (CC0)\nMade with Godot 4.7"

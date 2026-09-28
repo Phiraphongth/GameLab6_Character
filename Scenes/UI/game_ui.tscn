@@ -1,0 +1,124 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/GameUI.gd" id="1_r"]
+[ext_resource type="Texture2D" path="res://Assets/Textures/coin.png" id="2_r"]
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("1_r")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1
+anchor_bottom = 1
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CoinTexture" type="TextureRect" parent="HUD"]
+layout_mode = 0
+offset_left = 24
+offset_top = 20
+offset_right = 96
+offset_bottom = 92
+texture = ExtResource("2_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CoinsLabel" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 106
+offset_top = 26
+offset_right = 330
+offset_bottom = 90
+theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
+theme_override_font_sizes/font_size = 48
+text = "0 / 0"
+
+[node name="StatsLabel" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1
+anchor_right = 1
+offset_left = -460
+offset_top = 30
+offset_right = -28
+offset_bottom = 70
+grow_horizontal = 0
+horizontal_alignment = 2
+text = "Time 00:00   Falls 0"
+
+[node name="LevelLabel" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1
+offset_top = 110
+offset_bottom = 190
+grow_horizontal = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 64
+theme_override_constants/outline_size = 18
+text = "Level"
+
+[node name="HintLabel" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1
+anchor_right = 1
+anchor_bottom = 1
+offset_top = -170
+offset_bottom = -100
+grow_horizontal = 2
+grow_vertical = 0
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 36
+text = ""
+
+[node name="PauseMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1
+anchor_bottom = 1
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="PauseMenu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1
+anchor_bottom = 1
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.03, 0.1, 0.55)
+
+[node name="Center" type="CenterContainer" parent="PauseMenu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1
+anchor_bottom = 1
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Box" type="PanelContainer" parent="PauseMenu/Center"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="PauseMenu/Center/Box"]
+layout_mode = 2
+custom_minimum_size = Vector2(360, 0)
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="PauseMenu/Center/Box/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 56
+text = "PAUSED"
+
+[node name="Resume" type="Button" parent="PauseMenu/Center/Box/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 64)
+text = "Resume"
+
+[node name="Restart" type="Button" parent="PauseMenu/Center/Box/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 64)
+text = "Restart Level"

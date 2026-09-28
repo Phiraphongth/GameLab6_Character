@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Gameplay/Mover.gd" id="1_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/props/cylinder_hazard.glb" id="2_r"]
+[ext_resource type="Script" path="res://Scripts/Gameplay/Hazard.gd" id="3_r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.95, 0.75, 0.2, 1)
+roughness = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2"]
+top_radius = 0.35
+bottom_radius = 0.45
+height = 1
+radial_segments = 8
+material = SubResource("StandardMaterial3D_1")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3"]
+size = Vector3(8.4, 0.55, 0.6)
+
+[node name="SpinBar" type="Node3D"]
+script = ExtResource("1_r")
+spin_degrees = Vector3(0, 75, 0)
+
+[node name="BarA" parent="." instance=ExtResource("2_r")]
+transform = Transform3D(0, 1, 0, -0.28, 0, 0, 0, 0, 0.28, 0.35, 0.45, 0)
+
+[node name="BarB" parent="." instance=ExtResource("2_r")]
+transform = Transform3D(0, -1, 0, 0.28, 0, 0, 0, 0, 0.28, -0.35, 0.45, 0)
+
+[node name="Hub" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_2")
+
+[node name="Hazard" type="Area3D" parent="."]
+script = ExtResource("3_r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hazard"]
+shape = SubResource("BoxShape3D_3")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)

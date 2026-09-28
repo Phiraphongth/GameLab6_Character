@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Gameplay/Checkpoint.gd" id="1_r"]
+[ext_resource type="PackedScene" path="res://Assets/Models/props/goal_flag.glb" id="2_r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(2, 2.5, 2)
+
+[node name="Checkpoint" type="Area3D"]
+script = ExtResource("1_r")
+
+[node name="Flag" parent="." instance=ExtResource("2_r")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+shape = SubResource("BoxShape3D_1")
